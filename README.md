@@ -24,9 +24,8 @@ As we go through the implementation of this project, the following concepts are 
 - E.t.c
 
 #THE PROCESS
-The console.py file is the entry point of our command interpreter.
 
-models/base_model.py file is the base class of all the models. It contains common elements as follows:
+The console.py file is the entry point of our command interpreter, models/base_model.py file is the base class of all the models. It contains common elements as follows:
 Attributes: id, created_at and updated_at
 methods: save() and to_json()
 
