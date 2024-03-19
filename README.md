@@ -1,44 +1,42 @@
-================================
-0x00. AirBnB clone - The console
-================================
+# Description of the project
+# #This Airbnb is a group project completed by GODWIN ESSIEN and ADEBISI OLUFEMI.
 
-This is a group project between:
-Dev1 - Olufemi Adebisi
-Dev2 - Godwin Essien
-Background Context
-Welcome to the AirBnB clone project!
-Before starting, please read the AirBnB concept page.
+This project is a prerequisite for the completion of our month 5 in the ALX Software Engineering Course. It is aimed at demonstrating all of the concepts we have learned so
+far in the course of studying the python progrmming language.
 
-First step: Write a command interpreter to manage your AirBnB objects.
-This is the first step towards building your first full web application: the AirBnB clone. This first step is very important because you will use what you build during this project with all other following projects: HTML/CSS templating, database storage, API, front-end integration…
+#CONCEPT OVERVIEW
 
-Each task is linked and will help you to:
+The project is aimed at building a cloned version of the AriBnb web application but to be used on a command intepreter.
 
-put in place a parent class (called BaseModel) to take care of the initialization, serialization and deserialization of your future instances
-create a simple flow of serialization/deserialization: Instance <-> Dictionary <-> JSON string <-> file
-create all classes used for AirBnB (User, State, City, Place…) that inherit from BaseModel
-create the first abstracted storage engine of the project: File storage.
-create all unittests to validate all our classes and storage engine
-What’s a command interpreter?
-Do you remember the Shell? It’s exactly the same but limited to a specific use-case. In our case, we want to be able to manage the objects of our project:
+in this regard, a command interpreter is used to manipulate data without a visual interface, like a shell (for development and debugging)
 
-Create a new object (ex: a new User or a new Place)
-Retrieve an object from a file, a database etc…
-Do operations on objects (count, compute stats, etc…)
-Update attributes of an object
-Destroy an object
+As we go through the implementation of this project, the following concepts are considered.
 
-Learning Objectives
-At the end of this project, you are expected to be able to explain to anyone, without the help of Google:
+- Using the concept of Object Oriented Programming to implement the project 
+- Creating a Python package
+- Creating a command interpreter in Python using the cmd module
+- Creating unit tests and module testing to ensure a smooth implementation of this project
+- Serialize and deserialize of JSON files
+- Using Datetime module
+- Creating UUID
+- Managing file storage
+- Using *args and **kwargs
+- E.t.c
 
-General
-How to create a Python package
-How to create a command interpreter in Python using the cmd module
-What is Unit testing and how to implement it in a large project
-How to serialize and deserialize a Class
-How to write and read a JSON file
-How to manage datetime
-What is an UUID
-What is *args and how to use it
-What is **kwargs and how to use it
-How to handle named arguments in a function
+#THE PROCESS
+The console.py file is the entry point of our command interpreter.
+
+models/base_model.py file is the base class of all the models. It contains common elements as follows:
+Attributes: id, created_at and updated_at
+methods: save() and to_json()
+
+To achieve this, A parent class (called BaseModel) is created to handle initialization, serialization and deserialization of all future instances.
+we have created a simple flow of serialization/deserialization: Instance <-> Dictionary <-> JSON string <-> file
+and also created all classes used for AirBnB (User, State, City, Place…) that inherit from BaseModel
+
+we further created the first abstracted storage engine of the project: File storage.
+All unittests are considered to validate all our classes and storage engine
+
+At the end of this project, we hope to have successfuly build our first full web application to run on command interpreter.
+
+#The AirBnB clone.
