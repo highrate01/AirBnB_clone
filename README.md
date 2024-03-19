@@ -1,5 +1,5 @@
-# Description of the project
-# #This Airbnb is a group project completed by GODWIN ESSIEN and ADEBISI OLUFEMI.
+# The AirBnb_clone
+# #This is a group project completed by GODWIN ESSIEN and ADEBISI OLUFEMI.
 
 This project is a prerequisite for the completion of our month 5 in the ALX Software Engineering Course. It is aimed at demonstrating all of the concepts we have learned so
 far in the course of studying the python progrmming language.
