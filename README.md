@@ -17,15 +17,15 @@ As we go through the implementation of this project, the following concepts are 
 - Creating a command interpreter in Python using the cmd module
 - Creating unit tests and module testing to ensure a smooth implementation of this project
 - Serialize and deserialize of JSON files
-- Using Datetime module
-- Creating UUID
+- Using Datetime module to genrate current time for each created and updated account
+- using UUID module to assign a unique id for each created account
 - Managing file storage
-- Using *args and **kwargs
+- Using *args and **kwargs for input commands
 - E.t.c
 
 #THE PROCESS
 
-The console.py file is the entry point of our command interpreter, models/base_model.py file is the base class of all the models. It contains common elements as follows:
+The console.py file contains program for interactive and non-interactive part of the command line interpreter, models/base_model.py file is the base class of all the models. It contains common elements as follows:
 Attributes: id, created_at and updated_at
 methods: save() and to_json()
 

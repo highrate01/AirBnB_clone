@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """
 Defines test methods
 """
@@ -59,4 +60,4 @@ class TestBasemodel(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main
+    unittest.maini()
