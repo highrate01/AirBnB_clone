@@ -30,7 +30,7 @@ class BaseModel:
 
     def save(self):
         """
-        update the updaated attribute wth the
+        update the updated attribute wth the
         current datetime
         """
 
