@@ -6,6 +6,11 @@ import json
 import os
 from models.base_model import BaseModel
 from models.user import User
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.amenity import Amenity
+from models.state import State
 
 
 class FileStorage:
@@ -18,8 +23,7 @@ class FileStorage:
 
     def new(self, obj):
         """
-        To add a new object to class attribute
-        which stand as the storage for all the objecta
+        add newly created classes to the dictionary
         """
         obj_cls_name = obj.__class__.__name__
         key = "{}.{}".format(obj_cls_name, obj.id)
@@ -35,7 +39,7 @@ class FileStorage:
 
     def save(self):
         """
-        It serializes the object dictionary into json format
+        It serializes the object dictionary into json file
         """
 
         all_objs = FileStorage.__objects
@@ -57,12 +61,12 @@ class FileStorage:
                     obj_dict = json.load(file)
 
                     for key, value in obj_dict.items():
-                        class_name, obj.id = key.split('.')
+                        class_name, obj_id = key.split('.')
 
                         cls = eval(class_name)
 
-                        instance = cls(**values)
+                        instance = cls(**value)
 
-                        FileStorage.__obj[key] = instance
+                        FileStorage.__objects[key] = instance
                 except Exception:
                     pass

@@ -2,10 +2,15 @@
 """
 This module defines command line intepreter
 """
+from models.city import City
 from models.user import User
 import cmd
 from models.base_model import BaseModel
 from models import storage
+from models.review import Review
+from models.place import Place
+from models.state import State
+from models.amenity import Amenity
 import shlex
 
 
@@ -13,8 +18,9 @@ class HBNBCommand(cmd.Cmd):
     """
     displays prompt
     """
-    prompt = "(hbnb)"
-    allowed_classes = ["BaseModel", "User"]
+    prompt = "(hbnb) "
+    allowed_classes = ["BaseModel", "User", "Place", "State",
+                       "City", "Amenity", "Review"]
 
     def do_create(self, arg):
         """
@@ -96,6 +102,50 @@ class HBNBCommand(cmd.Cmd):
             for key, value in objects.items():
                 if key.split('.')[0] == args[0]:
                     print(str(value))
+
+    def default(self, arg):
+        """
+        handle invalid system
+        """
+        arg_list = arg.split('.')
+        input_class_name = arg_list[0]
+
+        args = arg_list[1].split('(')
+        input_method = args[0]
+
+        dict_method = {
+                'all': self.do_all,
+                'show': self.do_show,
+                'destroy': self.do_destroy,
+                'update': self.do_update,
+                'count': self.do_count
+                }
+        if input_method in dict_method.keys():
+            return dict_method[input_method]("{} {}".format(
+                                             input_class_name, ""))
+        print("** unkown syntax: {}".format(arg))
+        return False
+
+    def do_count(self, arg):
+        """
+        To retrieve number of instances of a class
+        """
+        objects = storage.all()
+        args = shlex.split(arg)
+        input_class_name = args[0]
+
+        num = 0
+
+        if args:
+            if input_class_name in self.allowed_classes:
+                for obj in objects.values():
+                    if obj.__class__.__name__ == input_class_name:
+                        num += 1
+                print(num)
+            else:
+                print("** class doesn't exist **")
+        else:
+            print("** class name missing **")
 
     def do_update(self, arg):
         """

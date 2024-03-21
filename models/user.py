@@ -7,7 +7,7 @@ from models.base_model import BaseModel
 
 class User(BaseModel):
     """
-    handles user's information
+    defines user's class that inherits from baseModel
     """
     first_name = ""
     last_name = ""
