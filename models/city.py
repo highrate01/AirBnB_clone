@@ -9,6 +9,5 @@ class City(BaseModel):
        state_id: state.id
        name: name
     """
-    def __init__(self):
-        self.state_id = ""
-        self.name = ""
+    state_id = ""
+    name = ""

@@ -9,14 +9,29 @@ Unittest classes:
 import os
 import unittest
 from models.base_model import BaseModel
-import model
+import models
 from models.amenity import Amenity
+from datetime import datetime
 
 
 class TestAmenity(unittest.TestCase):
     """
     Test amneity class
     """
+    def setUp(self):
+        """
+        creates a tempoary file to save data
+        """
+        self.test_file = "test_file.json"
+        models.storage.__file_path = self.test_file
+        models.storage.save()
+
+    def tearDown(self):
+        """
+        deletes the temp file
+        """
+        if os.path.exists(self.test_file):
+            os.remove(self.test_file)
 
     def test_instance_creation(self):
         """
@@ -41,6 +56,13 @@ class TestAmenity(unittest.TestCase):
         amenity.name = "Gym"
         self.assertEqual(amenity.name, "Gym")
 
+    def test_amenity_inheritance(self):
+        """
+        test if amenity class inherit from BaseModel
+        """
+        test_city = Amenity()
+        self.assertTrue(issubclass(Amenity, BaseModel))
+
     def test_args_unused(self):
         am = Amenity(None)
         self.assertNotIn(None, am.__dict__.values())
@@ -49,7 +71,7 @@ class TestAmenity(unittest.TestCase):
         """
         instantiation with kwargs
         """
-        dt = datetime.today()
+        dt = datetime.utcnow()
         dt_iso = dt.isoformat()
         am = Amenity(id="345", created_at=dt_iso, updated_at=dt_iso)
         self.assertEqual(am.id, "345")

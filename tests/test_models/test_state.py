@@ -17,6 +17,28 @@ class TestState_instantiation(unittest.TestCase):
     """Unittests for testing
     instantiation of the State class.
     """
+    def setUp(self):
+        """
+        creates a temp file for saving data
+        """
+        self.test_file = "test_file.json"
+        models.storage.__file_path = self.test_file
+        models.storage.save()
+
+    def tearDown(self):
+        """
+        deletes the created test file after used
+        """
+        if os.path.exists(self.test_file):
+            os.remove(self.test_file)
+
+    def test_inheritance(self):
+        """
+        test if state class inherit from base_model
+        """
+        test_state = State()
+        self.assertTrue(issubclass(State, BaseModel))
+
     def test_no_args_instantiates(self):
         """
         test with no args
@@ -45,3 +67,7 @@ class TestState_instantiation(unittest.TestCase):
         st1 = State()
         st2 = State()
         self.assertNotEqual(st1.id, st2.id)
+
+
+if __name__ == "__main__":
+    unittest.main()
