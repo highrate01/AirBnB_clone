@@ -112,6 +112,7 @@ class HBNBCommand(cmd.Cmd):
 
         args = arg_list[1].split('(')
         input_method = args[0]
+        extra_args = args[1].split(')')[0]
 
         dict_method = {
                 'all': self.do_all,
@@ -122,7 +123,7 @@ class HBNBCommand(cmd.Cmd):
                 }
         if input_method in dict_method.keys():
             return dict_method[input_method]("{} {}".format(
-                                             input_class_name, ""))
+                                             input_class_name, extra_args))
         print("** unkown syntax: {}".format(arg))
         return False
 
