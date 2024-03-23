@@ -113,6 +113,7 @@ class HBNBCommand(cmd.Cmd):
         args = arg_list[1].split('(')
         input_method = args[0]
         extra_args = args[1].split(')')[0]
+        all_args = extra_args.split(',')
 
         dict_method = {
                 'all': self.do_all,
@@ -122,8 +123,16 @@ class HBNBCommand(cmd.Cmd):
                 'count': self.do_count
                 }
         if input_method in dict_method.keys():
-            return dict_method[input_method]("{} {}".format(
-                                             input_class_name, extra_args))
+            if input_method != "update":
+                return dict_method[input_method]("{} {}".format(
+                                                 input_class_name, extra_args))
+            else:
+                obj_id = all_args[0]
+                attr_name = all_args[1]
+                attr_value = all_args[2]
+                return dict_method[input_method]("{} {} {} {}".format(
+                                                 input_class_name, obj_id,
+                                                 attr_name, attr_value))
         print("** unkown syntax: {}".format(arg))
         return False
 
