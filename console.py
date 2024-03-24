@@ -12,8 +12,34 @@ from models.place import Place
 from models.state import State
 from models.amenity import Amenity
 import shlex
+import re
+import ast
 
 
+def split_curl(extra_args):
+    """
+    split curly braces for the update method
+    """
+    curl_brace = re.search(r"\{(.*?)\}", extra_args)
+    if curl_brace:
+        comma_parts = shlex.split(extra_args[:curl_brace.span()[0]])
+        id_ = comma_parts[0].replace(",", "").strip()
+        str_data = curl_brace.group(1)
+        try:
+            arg_dict = ast.literal_eval("{" + str_data + "}")
+        except Exception:
+            print("** invalid dictionary format **")
+            return
+        return id_, arg_dict
+    else:
+        try:
+            args = extra_args.split(",")
+            id_ = args[0].strip()
+            attr_name = args[1].strip()
+            attr_value = args[2].strip()
+            return f"{id_}", f"{attr_name} {attr_value}"
+        except Exception:
+            print("** argument missing **")
 class HBNBCommand(cmd.Cmd):
     """
     displays prompt
@@ -21,6 +47,7 @@ class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     allowed_classes = ["BaseModel", "User", "Place", "State",
                        "City", "Amenity", "Review"]
+    last_command = False
 
     def do_create(self, arg):
         """
@@ -105,7 +132,7 @@ class HBNBCommand(cmd.Cmd):
 
     def default(self, arg):
         """
-        handle invalid system
+        handle invalid syntax
         """
         arg_list = arg.split('.')
         input_class_name = arg_list[0]
@@ -113,7 +140,6 @@ class HBNBCommand(cmd.Cmd):
         args = arg_list[1].split('(')
         input_method = args[0]
         extra_args = args[1].split(')')[0]
-        all_args = extra_args.split(',')
 
         dict_method = {
                 'all': self.do_all,
@@ -127,13 +153,20 @@ class HBNBCommand(cmd.Cmd):
                 return dict_method[input_method]("{} {}".format(
                                                  input_class_name, extra_args))
             else:
-                obj_id = all_args[0]
-                attr_name = all_args[1]
-                attr_value = all_args[2]
-                return dict_method[input_method]("{} {} {} {}".format(
-                                                 input_class_name, obj_id,
-                                                 attr_name, attr_value))
-        print("** unkown syntax: {}".format(arg))
+                obj_id, arg_dict = split_curl(extra_args)
+                try:
+                    if isinstance(arg_dict, str):
+                        attr = arg_dict
+                        return dict_method[input_method]("{} {} {}".format(
+                                                         input_class_name,
+                                                         obj_id, attr))
+                    elif isinstance(arg_dict, dict):
+                        return dict_method[input_method]("{} {} {}".format(
+                                                         input_class_name, obj_id,
+                                                         arg_dict))
+                except Exception:
+                    print("** argument missing **")
+        print("** unknown syntax: {}".format(arg))
         return False
 
     def do_count(self, arg):
@@ -182,14 +215,29 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
             else:
                 obj = objects[key]
-                attr_name = args[2]
-                attr_value = args[3]
+                curl_brace = re.search(r"\{(.*?)\}", arg)
 
-                try:
-                    attr_value = eval(attr_value)
-                except Exception:
-                    pass
-                setattr(obj, attr_name, attr_value)
+                if curl_brace:
+                    str_data = curl_brace.group(1)
+
+                    arg_dict = ast.literal_eval("{" + str_data + "}")
+                    attr_name = list(arg_dict.keys())
+                    attr_value = list(arg_dict.values())
+                    attr_name1 = attr_name[0]
+                    attr_value1 = attr_value[0]
+                    attr_name2 = attr_name[1]
+                    attr_value2 = attr_value[1]
+                    setattr(obj, attr_name1, attr_value1)
+                    setattr(obj, attr_name2, attr_value2)
+                else:
+                    attr_name = args[2]
+                    attr_value = args[3]
+
+                    try:
+                        attr_value = eval(attr_value)
+                    except Exception:
+                        pass
+                    setattr(obj, attr_name, attr_value)
                 obj.save()
 
     def do_quit(self, arg):
