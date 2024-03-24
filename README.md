@@ -47,16 +47,20 @@ type any of the commands from the listed options on "help" and press Enter
 ./console.py
 (hbnb) help
 
-Documented commands (type help <topic>):
+Documented commands (type help <\topic>):
 ========================================
 EOF  help  quit
 
-(hbnb) 
+(hbnb)
+ 
 (hbnb) help quit
+
 Quit command to exit the program
 
+(hbnb)
+
 (hbnb) 
-(hbnb) 
+
 (hbnb) quit 
 
 # OTHER PROCESS INVOLVED
