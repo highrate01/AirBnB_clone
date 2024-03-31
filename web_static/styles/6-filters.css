@@ -8,7 +8,6 @@
     display: flex;
     align-items: center;
 }
-
 button {
     font-size: 18px;
     background-color: #FF5A5F;
@@ -17,14 +16,15 @@ button {
     width: 20%;
     border: 0px;
     border-radius: 4px;
+    align-content: center;
     right: 30px;
     top: 15%;
     position: absolute;
+    transition: 0.5s;
 }
 button:hover {
     opacity: 90%;
 }
-
 .locations h3,
 .amenities h3 {
     font-weight: 600;
@@ -39,18 +39,43 @@ button:hover {
     padding: 0;
     margin: 0;
 }
-.locations, .amenities {
-    height: 100%;
-    width: 25%;
-}
 .locations {
     border-right: 1px solid #DDDDDD;
     display: grid;
     place-content: center;
 }
-
 .amenities{
     margin-right: auto;
     display: grid;
     place-content: center;
+}
+.locations, .amenities {
+    height: 100%;
+    width: 25%;
+    position: relative;
+}
+
+.locations:hover .popover,
+.amenities:hover .popover{
+    background-color: #FAFAFA;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    position: absolute;
+    box-sizing: border-box;
+    margin: 0;
+    display: block;
+    place-content: center;
+}
+.popover {
+    /* Other styles */
+    position: absolute;
+    width: 100%;
+    top: 100%;
+    display: none;
+}
+ul li{
+    list-style: none;
+}
+.locations h2{
+    margin-bottom: 5px;
 }
