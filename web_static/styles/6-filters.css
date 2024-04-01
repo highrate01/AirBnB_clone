@@ -67,15 +67,15 @@ button:hover {
     place-content: center;
 }
 .popover {
-    /* Other styles */
     position: absolute;
     width: 100%;
     top: 100%;
     display: none;
+    padding-bottom: 20px;
 }
 ul li{
     list-style: none;
 }
-.locations h2{
+h2{
     margin-bottom: 5px;
 }
