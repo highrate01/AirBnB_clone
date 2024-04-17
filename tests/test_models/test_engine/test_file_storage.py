@@ -31,6 +31,17 @@ class TestfilestorageInstantiation(unittest.TestCase):
 
 
 class Testfilestorage(unittest.TestCase):
+    """
+    Test Case for filestorage class
+    """
+    
+    def test_initialization(self):
+        """
+        Test if Filestorage initializes with an empty __object attributes
+        """
+        storage = FileStorage()
+        self.assertIsNotNone(storage.__FileStorage__object)
+        self.assertEqual(len(storage._FileStorage__objects), 0)
 
     def setUp(self):
         """
