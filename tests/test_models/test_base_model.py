@@ -32,6 +32,16 @@ class TestBasemodel(unittest.TestCase):
         current_updated_at = my_model.updated_at
         self.assertNotEqual(init_updated_at, current_updated_at)
 
+    def save():
+        """
+        Test if save updates the updated_at attributes
+        """
+        My_model = BaseModel()
+        old_updated_at = my_model.updated_at
+        my_model.save()
+        new_updated_at = my_model.updated_at
+        self.assertNotEqual(old_updated_at, new_updated_at)
+
     def test_to_dict(self):
         """
         test for dict mothod
